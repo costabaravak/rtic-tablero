@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { supabase } from './lib/supabase'
-import { ESTADOS } from './constants'
+import { ESTADOS, HASH_CLAVE_EDICION } from './constants'
 import type { Corte, Estado, Indicador } from './types'
 import { Chart, type Punto } from './components/Chart'
 import { IslaCard } from './components/IslaCard'
@@ -15,12 +15,38 @@ const FILTROS: { f: Filtro; label: string }[] = [
   { f: 'riesgo', label: 'En riesgo' },
 ]
 
+async function sha256hex(texto: string) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(texto))
+  return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('')
+}
+
 export default function App() {
   const [inds, setInds] = useState<Indicador[] | null>(null)
   const [cortes, setCortes] = useState<Corte[]>([])
   const [error, setError] = useState<string | null>(null)
   const [filtro, setFiltro] = useState<Filtro>('todos')
   const [editar, setEditar] = useState(false)
+  const [autorizado, setAutorizado] = useState(() => sessionStorage.getItem('rtic_edicion_ok') === '1')
+
+  async function toggleEditar() {
+    if (editar) {
+      setEditar(false)
+      return
+    }
+    if (autorizado) {
+      setEditar(true)
+      return
+    }
+    const clave = prompt('Ingresá la clave de edición:')
+    if (clave === null) return
+    if ((await sha256hex(clave)) === HASH_CLAVE_EDICION) {
+      sessionStorage.setItem('rtic_edicion_ok', '1')
+      setAutorizado(true)
+      setEditar(true)
+    } else {
+      alert('Clave incorrecta.')
+    }
+  }
   const [ultimoCambio, setUltimoCambio] = useState<string | null>(null)
   const timers = useRef(new Map<string, ReturnType<typeof setTimeout>>())
 
@@ -233,7 +259,7 @@ export default function App() {
         </div>
         <div className="head-right">
           <div>
-            <button className={`btn${editar ? ' activo' : ''}`} onClick={() => setEditar(!editar)}>
+            <button className={`btn${editar ? ' activo' : ''}`} onClick={toggleEditar}>
               {editar ? 'Salir del modo edición' : 'Modo edición'}
             </button>{' '}
             {editar && (
