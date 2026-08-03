@@ -10,7 +10,7 @@ export const ESTADOS: Record<Estado, string> = {
 export const ORDEN_ESTADOS: Estado[] = ['completada', 'curso', 'pendiente', 'riesgo']
 
 // SHA-256 de la clave de edición. Para cambiarla: printf %s "nueva-clave" | shasum -a 256
-export const HASH_CLAVE_EDICION = '2313537addbc6a738c4805ed5e44dfe0a7d1ddc02f73ead65b17f82c2bfc40ea'
+export const HASH_CLAVE_EDICION = '4f56cdbf9e3f9424ff660853f17b2e3197da0a767a3fa582dfd6b1ae0ea35228'
 
 export const ISLA_META: Record<string, { sillas: number; servicios: string | null }> = {
   'Isla 1': { sillas: 6, servicios: null },
