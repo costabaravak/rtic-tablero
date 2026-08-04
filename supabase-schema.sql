@@ -75,9 +75,10 @@ insert into indicadores (isla, categoria, monitor, monitor_titulo, nombre, rotac
   ('Isla 1','OCTG + Cabezales',1,'Volumen y Tipo Casing/Tubing','Tendencia mensual',false,2),
   ('Isla 1','OCTG + Cabezales',1,'Volumen y Tipo Casing/Tubing','Robusto / FAT ext. / SLIM',false,3),
   ('Isla 1','OCTG + Cabezales',1,'Volumen y Tipo Casing/Tubing','8% desc. ponderado',false,4),
-  ('Isla 1','OCTG + Cabezales',2,'TCO + Market Share Cabezales y Tapones','TCO',false,5),
-  ('Isla 1','OCTG + Cabezales',2,'TCO + Market Share Cabezales y Tapones','Market Share',false,6),
-  ('Isla 1','OCTG + Cabezales',2,'TCO + Market Share Cabezales y Tapones','Vencimientos',true,7),
+  ('Isla 1','OCTG + Cabezales',2,'TCO + Market Share Cabezales y Tapones','TCO Cabezales',false,5),
+  ('Isla 1','OCTG + Cabezales',2,'TCO + Market Share Cabezales y Tapones','TCO Tapones',false,6),
+  ('Isla 1','OCTG + Cabezales',2,'TCO + Market Share Cabezales y Tapones','Market Share Cabezales',false,7),
+  ('Isla 1','OCTG + Cabezales',2,'TCO + Market Share Cabezales y Tapones','Market Share Tapones',false,40),
   -- Isla 2 · Rigs
   ('Isla 2','Rigs',1,'TCO + Score de proveedores','TCO normalizado',false,8),
   ('Isla 2','Rigs',1,'TCO + Score de proveedores','Score de proveedores',false,9),
