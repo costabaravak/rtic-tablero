@@ -82,6 +82,7 @@ export function IslaCard({ isla, categoria, kpis, filtro, editar, onCambio, onAg
             <p className="eyebrow">{isla}</p>
             <h2>{categoria}</h2>
             {meta?.servicios && <div className="servicios">{meta.servicios}</div>}
+            {meta?.prioridad && <div className="prioridad">{meta.prioridad}</div>}
           </div>
           {meta && <span className="sillas">{meta.sillas} sillas</span>}
         </div>

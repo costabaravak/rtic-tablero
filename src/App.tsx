@@ -347,19 +347,6 @@ export default function App() {
         ))}
       </section>
 
-      <section className="notas">
-        <h2>Notas y pendientes de validación</h2>
-        <ul>
-          <li>Ámbar = indicadores en rotación: comparten pantalla mediante carrusel dentro del monitor.</li>
-          <li>Nomenclatura de servicios de E-20 y E-30 pendiente de validación.</li>
-          <li>8% de descuento promedio ponderado por familia de producto (OCTG) — a confirmar con Quirce.</li>
-          <li>
-            Share dinámico disponible únicamente en Direccional, Coiled Tubing y Stacks; se incorpora al
-            ampliar la cantidad de pantallas.
-          </li>
-        </ul>
-      </section>
-
       <footer className="pie">
         RTIC Well Construction · configuración base 6 islas / 12 monitores / 32 sillas · estados:{' '}
         {Object.values(ESTADOS).join(' · ')}
