@@ -120,6 +120,6 @@ insert into indicadores (isla, categoria, monitor, monitor_titulo, nombre, rotac
   ('Isla 6','Proyectos',1,'Plan de Compras + Proyectos','RMA',true,35),
   ('Isla 6','Proyectos',1,'Plan de Compras + Proyectos','Exploratorios',true,36),
   ('Isla 6','Proyectos',1,'Plan de Compras + Proyectos','LNG',true,37),
-  ('Isla 6','Proyectos',2,'Costo Pozo + Rendimiento de Compradores','Costo por pozo (USD/m lateral)',false,38),
-  ('Isla 6','Proyectos',2,'Costo Pozo + Rendimiento de Compradores','Rendimiento de compradores',false,39)
+  ('Isla 6','Proyectos',2,'Rendimiento de Compradores','Costo por pozo (USD/m lateral)',false,38),
+  ('Isla 6','Proyectos',2,'Rendimiento de Compradores','Rendimiento de compradores',false,39)
 on conflict (orden) do nothing;
