@@ -4,7 +4,7 @@ export const ESTADOS: Record<Estado, string> = {
   pendiente: 'Pendiente',
   curso: 'En curso',
   completada: 'Completada',
-  riesgo: 'En riesgo',
+  riesgo: 'Alerta',
 }
 
 export const ORDEN_ESTADOS: Estado[] = ['completada', 'curso', 'pendiente', 'riesgo']

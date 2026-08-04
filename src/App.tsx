@@ -12,7 +12,7 @@ const FILTROS: { f: Filtro; label: string }[] = [
   { f: 'completada', label: 'Completados' },
   { f: 'curso', label: 'En curso' },
   { f: 'pendiente', label: 'Pendientes' },
-  { f: 'riesgo', label: 'En riesgo' },
+  { f: 'riesgo', label: 'Alerta' },
 ]
 
 async function sha256hex(texto: string) {
@@ -317,7 +317,7 @@ export default function App() {
         </div>
         {(['completada', 'curso', 'pendiente', 'riesgo'] as Estado[]).map((e) => (
           <div className="tile" key={e}>
-            <div className="k">{e === 'completada' ? 'Completados' : e === 'curso' ? 'En curso' : e === 'pendiente' ? 'Pendientes' : 'En riesgo'}</div>
+            <div className="k">{e === 'completada' ? 'Completados' : e === 'curso' ? 'En curso' : e === 'pendiente' ? 'Pendientes' : 'Alerta'}</div>
             <div className="v">{stats[e]}</div>
             <div className="d">de {stats.n} indicadores</div>
           </div>
