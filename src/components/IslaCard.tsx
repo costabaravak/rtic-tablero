@@ -12,21 +12,18 @@ interface Props {
   onAgregar: (
     base: Pick<Indicador, 'isla' | 'categoria' | 'monitor' | 'monitor_titulo'>,
     nombre: string,
-    rotacion: boolean,
   ) => void
   onEliminar: (k: Indicador) => void
 }
 
-function AgregarForm({ onAgregar }: { onAgregar: (nombre: string, rotacion: boolean) => void }) {
+function AgregarForm({ onAgregar }: { onAgregar: (nombre: string) => void }) {
   const [nombre, setNombre] = useState('')
-  const [rot, setRot] = useState(false)
 
   function enviar() {
     const limpio = nombre.trim()
     if (!limpio) return
-    onAgregar(limpio, rot)
+    onAgregar(limpio)
     setNombre('')
-    setRot(false)
   }
 
   return (
@@ -39,9 +36,6 @@ function AgregarForm({ onAgregar }: { onAgregar: (nombre: string, rotacion: bool
         onChange={(e) => setNombre(e.target.value)}
         onKeyDown={(e) => e.key === 'Enter' && enviar()}
       />
-      <label className="check-rot">
-        <input type="checkbox" checked={rot} onChange={(e) => setRot(e.target.checked)} /> Rotación
-      </label>
       <button className="btn chico" onClick={enviar} disabled={!nombre.trim()}>
         + Agregar
       </button>
@@ -123,10 +117,7 @@ export function IslaCard({ isla, categoria, kpis, filtro, editar, onCambio, onAg
                   ) : (
                     <span className={`estado ${k.estado}`}>{ESTADOS[k.estado]}</span>
                   )}
-                  <span className="nombre">
-                    {k.nombre}
-                    {k.rotacion && <span className="tag-rot">Rotación</span>}
-                  </span>
+                  <span className="nombre">{k.nombre}</span>
                   {editar ? (
                     <input
                       type="range"
@@ -159,12 +150,8 @@ export function IslaCard({ isla, categoria, kpis, filtro, editar, onCambio, onAg
           </ul>
           {editar && (
             <AgregarForm
-              onAgregar={(nombre, rotacion) =>
-                onAgregar(
-                  { isla, categoria, monitor: num, monitor_titulo: lista[0].monitor_titulo },
-                  nombre,
-                  rotacion,
-                )
+              onAgregar={(nombre) =>
+                onAgregar({ isla, categoria, monitor: num, monitor_titulo: lista[0].monitor_titulo }, nombre)
               }
             />
           )}

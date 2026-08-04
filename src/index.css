@@ -94,8 +94,6 @@ h1{font-size:clamp(1.5rem,3vw,2.1rem); font-weight:700; letter-spacing:-.015em; 
 .chip:hover{border-color:var(--accent)}
 .chip:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
 .chip[aria-pressed="true"]{background:var(--accent); border-color:var(--accent); color:var(--chip-ink)}
-.leyenda-rot{font-size:.78rem; color:var(--muted); margin-left:auto}
-.leyenda-rot .tag-rot{margin-left:4px}
 
 /* ---------- islas ---------- */
 .islas{display:grid; grid-template-columns:repeat(auto-fit,minmax(min(480px,100%),1fr)); gap:16px}
@@ -133,10 +131,6 @@ ul.kpis{list-style:none; margin:0; padding:0; display:flex; flex-direction:colum
 .estado.completada{background:var(--ok-bg); color:var(--ok)}
 .estado.riesgo{background:var(--risk-bg); color:var(--risk)}
 .kpi .nombre{font-size:.86rem; line-height:1.3}
-.tag-rot{
-  display:inline-block; font-size:.62rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
-  background:var(--amber-bg); color:var(--amber-ink); border-radius:4px; padding:1px 6px; margin-left:6px; vertical-align:1px;
-}
 .kpi .pct{font-family:"SF Mono",ui-monospace,Menlo,monospace; font-size:.8rem; font-variant-numeric:tabular-nums; color:var(--ink-2); text-align:right}
 
 /* ---------- controles de edición ---------- */
@@ -163,8 +157,6 @@ input[type="range"].rango{width:100%; accent-color:var(--accent); cursor:pointer
   background:var(--surface); color:var(--ink);
 }
 .agregar input[type="text"]:focus-visible{outline:2px solid var(--accent); outline-offset:1px; border-style:solid}
-.check-rot{font-size:.78rem; color:var(--ink-2); display:flex; align-items:center; gap:4px; white-space:nowrap; cursor:pointer}
-.check-rot input{accent-color:var(--accent)}
 .btn.chico{padding:5px 12px; font-size:.78rem; box-shadow:none}
 .btn.chico:disabled{opacity:.45; cursor:default}
 .btn.chico:disabled:hover{border-color:var(--line)}

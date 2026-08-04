@@ -116,11 +116,11 @@ export default function App() {
     )
   }
 
-  async function agregar(base: Pick<Indicador, 'isla' | 'categoria' | 'monitor' | 'monitor_titulo'>, nombre: string, rotacion: boolean) {
+  async function agregar(base: Pick<Indicador, 'isla' | 'categoria' | 'monitor' | 'monitor_titulo'>, nombre: string) {
     const orden = Math.max(0, ...(inds?.map((k) => k.orden) ?? [])) + 1
     const { data, error: e } = await supabase
       .from('indicadores')
-      .insert({ ...base, nombre, rotacion, orden })
+      .insert({ ...base, nombre, orden })
       .select()
       .single()
     if (e) {
@@ -181,19 +181,31 @@ export default function App() {
 
   async function guardarCorte() {
     if (!stats) return
-    const semana = (cortes.at(-1)?.semana ?? 0) + 1
-    const fecha = new Date().toISOString().slice(0, 10)
-    if (!confirm(`¿Guardar el corte de la Semana ${semana} (${fecha}) con ${stats.global} % de avance global?`))
-      return
-    const { error: e } = await supabase.from('cortes_semanales').insert({
-      semana,
-      fecha,
+    const fecha = new Date().toLocaleDateString('en-CA')
+    const datos = {
       avance_global: stats.global,
       completados: stats.completada,
       en_curso: stats.curso,
       pendientes: stats.pendiente,
       en_riesgo: stats.riesgo,
-    })
+    }
+    const existente = cortes.find((c) => c.fecha === fecha)
+    if (existente) {
+      if (
+        !confirm(
+          `Ya hay un corte guardado con fecha de hoy (Semana ${existente.semana}, ${fecha}). ¿Actualizarlo con ${stats.global} % de avance global?`,
+        )
+      )
+        return
+      const { error: e } = await supabase.from('cortes_semanales').update(datos).eq('id', existente.id)
+      if (e) alert(`No se pudo actualizar el corte: ${e.message}`)
+      else cargar()
+      return
+    }
+    const semana = (cortes.at(-1)?.semana ?? 0) + 1
+    if (!confirm(`¿Guardar el corte de la Semana ${semana} (${fecha}) con ${stats.global} % de avance global?`))
+      return
+    const { error: e } = await supabase.from('cortes_semanales').insert({ semana, fecha, ...datos })
     if (e) alert(`No se pudo guardar el corte: ${e.message}`)
     else cargar()
   }
@@ -296,7 +308,7 @@ export default function App() {
         <h2>Evolución semanal del avance global</h2>
         <p className="hint">
           Cada punto es un corte guardado. El punto «Hoy» muestra el estado actual y se vuelve definitivo al
-          guardar el corte de la semana.
+          guardar el corte de la semana. Si volvés a guardar el mismo día, se actualiza el corte de esa fecha.
         </p>
         <Chart puntos={puntos} />
         {editar && cortes.length > 0 && (
@@ -326,9 +338,6 @@ export default function App() {
             {label}
           </button>
         ))}
-        <span className="leyenda-rot">
-          Indicador en carrusel <span className="tag-rot">Rotación</span>
-        </span>
       </div>
 
       <section className="islas" aria-label="Avance por isla">

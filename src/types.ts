@@ -7,7 +7,6 @@ export interface Indicador {
   monitor: number
   monitor_titulo: string
   nombre: string
-  rotacion: boolean
   estado: Estado
   progreso: number
   responsable: string
