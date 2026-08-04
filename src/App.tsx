@@ -210,6 +210,26 @@ export default function App() {
     else cargar()
   }
 
+  function onCambioCorte(id: string, patch: Partial<Corte>) {
+    setCortes((prev) => prev.map((c) => (c.id === id ? { ...c, ...patch } : c)))
+    const clave = `corte:${id}`
+    const previo = timers.current.get(clave)
+    if (previo) clearTimeout(previo)
+    timers.current.set(
+      clave,
+      setTimeout(async () => {
+        timers.current.delete(clave)
+        const { error: e } = await supabase.from('cortes_semanales').update(patch).eq('id', id)
+        if (e) {
+          alert(`No se pudo guardar el cambio del corte: ${e.message}`)
+          cargar()
+        } else {
+          setUltimoCambio(new Date().toLocaleTimeString('es-AR', { hour: '2-digit', minute: '2-digit' }))
+        }
+      }, 500),
+    )
+  }
+
   async function eliminarCorte(c: Corte) {
     if (
       !confirm(
@@ -316,7 +336,28 @@ export default function App() {
             <span className="cap">Cortes guardados:</span>
             {cortes.map((c) => (
               <span className="corte-item" key={c.id}>
-                Sem {c.semana} · {c.fecha} · {Math.round(Number(c.avance_global))} %
+                Sem {c.semana}
+                <input
+                  type="date"
+                  className="corte-fecha"
+                  value={c.fecha}
+                  aria-label={`Fecha del corte de la semana ${c.semana}`}
+                  onChange={(e) => e.target.value && onCambioCorte(c.id, { fecha: e.target.value })}
+                />
+                <input
+                  type="number"
+                  className="corte-avance"
+                  min={0}
+                  max={100}
+                  value={Math.round(Number(c.avance_global))}
+                  aria-label={`Avance global del corte de la semana ${c.semana}`}
+                  onChange={(e) =>
+                    onCambioCorte(c.id, {
+                      avance_global: Math.max(0, Math.min(100, Number(e.target.value) || 0)),
+                    })
+                  }
+                />
+                %
                 <button
                   className="btn-borrar"
                   title={`Eliminar corte de la semana ${c.semana}`}

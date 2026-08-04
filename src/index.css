@@ -82,6 +82,12 @@ h1{font-size:clamp(1.5rem,3vw,2.1rem); font-weight:700; letter-spacing:-.015em; 
   padding:3px 6px 3px 12px;
 }
 .corte-item .btn-borrar{width:20px; height:20px; font-size:.9rem; border-radius:999px}
+.corte-item input{
+  font-family:inherit; font-size:.78rem; color:var(--ink);
+  background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:1px 4px;
+}
+.corte-item input:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+.corte-item .corte-avance{width:3.6em; text-align:right; font-variant-numeric:tabular-nums}
 
 /* ---------- filtros ---------- */
 .filters{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:0 0 16px}

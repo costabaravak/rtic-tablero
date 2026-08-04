@@ -29,7 +29,7 @@ Tablero web de seguimiento semanal de la implementación de indicadores del **RT
 ## Uso
 
 - **Modo edición**: cambiar estado y progreso de cada indicador (se guarda solo, con sincronización en tiempo real entre pestañas/personas), agregar indicadores nuevos por monitor y eliminarlos.
-- **Guardar corte semanal**: congela la foto de la semana (avance global + conteos) y agrega el punto al gráfico de evolución. Si ya existe un corte con la fecha de hoy, se actualiza ese mismo corte en lugar de crear uno nuevo. Los cortes guardados se pueden borrar desde el mismo modo edición.
+- **Guardar corte semanal**: congela la foto de la semana (avance global + conteos) y agrega el punto al gráfico de evolución. Si ya existe un corte con la fecha de hoy, se actualiza ese mismo corte en lugar de crear uno nuevo. Los cortes guardados se pueden editar (fecha y % de avance) y borrar desde el mismo modo edición.
 - **Filtros** por estado (completados / en curso / pendientes / en riesgo).
 
 ## Seguridad
